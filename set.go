@@ -35,3 +35,15 @@ func (s *Set[T]) Remove(value T) {
 func (s *Set[T]) Size() int {
 	return len(s.collection)
 }
+
+// Items returns a slice of the items in the set
+func (s *Set[T]) Items() []T {
+	items := make([]T, len(s.collection))
+	idx := 0
+	for item := range s.collection {
+		items[idx] = item
+		idx++
+	}
+
+	return items
+}
