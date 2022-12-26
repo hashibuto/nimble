@@ -59,3 +59,17 @@ func TestSetInt(t *testing.T) {
 		t.Errorf("Wronge size after noop removal")
 	}
 }
+
+func TestSetItems(t *testing.T) {
+	s := NewSet(1, 2)
+	items := s.Items()
+	if len(items) != 2 {
+		t.Errorf("Expected 2 items in set, got %d", len(items))
+		return
+	}
+	if (items[0] == 1 && items[1] == 2) || (items[0] == 2 && items[1] == 1) {
+	} else {
+		t.Errorf("Incorrect items in set")
+		return
+	}
+}
