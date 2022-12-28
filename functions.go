@@ -15,7 +15,7 @@ func Unique[T comparable](values ...T) []T {
 }
 
 // Filter returns the filtered items from the input set, using the filter function
-func Filter[T comparable](f func(v T) bool, values ...T) []T {
+func Filter[T any](f func(v T) bool, values ...T) []T {
 	filtered := []T{}
 	for _, v := range values {
 		if f(v) {
