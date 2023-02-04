@@ -40,9 +40,32 @@ func TestMap(t *testing.T) {
 
 	if results[0] != "one" {
 		t.Errorf("Got an incorrect result on the first element")
+		return
 	}
 
 	if results[3] != "default" {
 		t.Errorf("Got an incorrect result on the fourth element")
+		return
+	}
+}
+
+func TestOr(t *testing.T) {
+	result := Or(0, 1)
+	if result != 1 {
+		t.Errorf("Expected result to be one, but got %d", result)
+	}
+}
+
+func TestOr2(t *testing.T) {
+	result := Or(1, 5)
+	if result != 1 {
+		t.Errorf("Expected result to be one, but got %d", result)
+	}
+}
+
+func TestOr3(t *testing.T) {
+	result := Or("", "hjello")
+	if result != "hjello" {
+		t.Errorf("Expected result to be one, but got %s", result)
 	}
 }

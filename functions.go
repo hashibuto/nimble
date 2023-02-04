@@ -35,3 +35,13 @@ func Map[T any, U any](f func(v T) U, values ...T) []U {
 
 	return output
 }
+
+// Or returns the orValue when value is the zero value for a given type
+func Or[T comparable](value T, orValue T) T {
+	var zero T
+	if zero == value {
+		return orValue
+	}
+
+	return value
+}
