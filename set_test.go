@@ -73,3 +73,20 @@ func TestSetItems(t *testing.T) {
 		return
 	}
 }
+
+func TestFromMap(t *testing.T) {
+	x := map[string]int{
+		"hello": 1,
+		"world": 2,
+	}
+
+	s := FromMap(x)
+	if !s.Has("hello") {
+		t.Errorf("Set is missing an expected value: \"hello\"")
+		return
+	}
+	if !s.Has("world") {
+		t.Errorf("Set is missing an expected value: \"world\"")
+		return
+	}
+}
