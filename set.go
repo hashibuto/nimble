@@ -15,6 +15,16 @@ func NewSet[T comparable](values ...T) *Set[T] {
 	}
 }
 
+func FromMap[T comparable, X any](values map[T]X) *Set[T] {
+	collection := map[T]struct{}{}
+	for v := range values {
+		collection[v] = struct{}{}
+	}
+	return &Set[T]{
+		collection: collection,
+	}
+}
+
 // Add adds a single value to the set
 func (s *Set[T]) Add(value T) {
 	s.collection[value] = struct{}{}
