@@ -80,7 +80,7 @@ func TestFromMap(t *testing.T) {
 		"world": 2,
 	}
 
-	s := FromMap(x)
+	s := NewSetFromMap(x)
 	if !s.Has("hello") {
 		t.Errorf("Set is missing an expected value: \"hello\"")
 		return
