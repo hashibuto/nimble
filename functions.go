@@ -15,10 +15,10 @@ func Unique[T comparable](values ...T) []T {
 }
 
 // Filter returns the filtered items from the input set, using the filter function
-func Filter[T any](f func(v T) bool, values ...T) []T {
+func Filter[T any](f func(index int, v T) bool, values ...T) []T {
 	filtered := []T{}
-	for _, v := range values {
-		if f(v) {
+	for index, v := range values {
+		if f(index, v) {
 			filtered = append(filtered, v)
 		}
 	}
@@ -27,10 +27,10 @@ func Filter[T any](f func(v T) bool, values ...T) []T {
 }
 
 // Map returns the original slice passed through the mapping function
-func Map[T any, U any](f func(v T) U, values ...T) []U {
+func Map[T any, U any](f func(index int, v T) U, values ...T) []U {
 	output := make([]U, len(values))
 	for idx, v := range values {
-		output[idx] = f(v)
+		output[idx] = f(idx, v)
 	}
 
 	return output
