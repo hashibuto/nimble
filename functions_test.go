@@ -11,7 +11,7 @@ func TestUnique(t *testing.T) {
 }
 
 func TestFilter(t *testing.T) {
-	results := Filter(func(v int) bool {
+	results := Filter(func(index int, v int) bool {
 		return v%2 == 0
 	}, 1, 2, 3, 4, 5, 6, 7)
 	if len(results) != 3 {
@@ -21,7 +21,7 @@ func TestFilter(t *testing.T) {
 }
 
 func TestMap(t *testing.T) {
-	results := Map(func(v int) string {
+	results := Map(func(index int, v int) string {
 		switch v {
 		case 1:
 			return "one"
