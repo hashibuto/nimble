@@ -90,3 +90,41 @@ func TestFromMap(t *testing.T) {
 		return
 	}
 }
+
+func TestUnion(t *testing.T) {
+	a := NewSet("a", "b", "c")
+	b := NewSet("c", "d", "e")
+	c := Union(a, b)
+	if c.Size() != 5 {
+		t.Errorf("Set size is incorrect: %v", c.Items())
+		return
+	}
+}
+
+func TestIntersect(t *testing.T) {
+	a := NewSet("a", "b", "c")
+	b := NewSet("c", "d", "e")
+	c := Intersect(a, b)
+	if c.Size() != 1 {
+		t.Errorf("Set size is incorrect: %v", c.Items())
+		return
+	}
+}
+
+func TestDifference(t *testing.T) {
+	a := NewSet("a", "b", "c")
+	b := NewSet("c", "d", "e")
+	c := a.Difference(b)
+	if c.Size() != 2 {
+		t.Errorf("Set size is incorrect: %v", c.Items())
+		return
+	}
+	if !c.Has("a") {
+		t.Errorf("missing set element: a")
+		return
+	}
+	if !c.Has("b") {
+		t.Errorf("missing set element: b")
+		return
+	}
+}
