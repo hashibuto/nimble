@@ -128,3 +128,19 @@ func TestDifference(t *testing.T) {
 		return
 	}
 }
+
+func TestPopEmpty(t *testing.T) {
+	s := NewSet[string]()
+	val := s.Pop()
+	if val != nil {
+		t.Errorf("return value should be nil")
+	}
+}
+
+func TestPopNonEmpty(t *testing.T) {
+	s := NewSet[string]("a")
+	val := s.Pop()
+	if val != "a" {
+		t.Errorf("return value should be nil")
+	}
+}
