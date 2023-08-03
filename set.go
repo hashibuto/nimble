@@ -106,6 +106,22 @@ func (s *Set[T]) Difference(set ...*Set[T]) *Set[T] {
 	return newSet
 }
 
+// Pop removes and returns an arbitrary item from the set
+func (s *Set[T]) Pop() any {
+	if len(s.collection) == 0 {
+		return nil
+	}
+
+	var selected T
+	for key := range s.collection {
+		selected = key
+		break
+	}
+	delete(s.collection, selected)
+
+	return selected
+}
+
 // Union returns a new set that is a union of the members of the provided sets
 func Union[T comparable](set ...*Set[T]) *Set[T] {
 	newSet := NewSet[T]()
