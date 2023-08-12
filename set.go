@@ -27,6 +27,18 @@ func NewSetFromMap[T comparable, X any](values map[T]X) *Set[T] {
 	}
 }
 
+// Copy makes a shallow copy of the current set and returns it
+func (s *Set[T]) Copy() *Set[T] {
+	c := map[T]struct{}{}
+	for k, v := range s.collection {
+		c[k] = v
+	}
+
+	return &Set[T]{
+		collection: c,
+	}
+}
+
 // Add adds a single value to the set
 func (s *Set[T]) Add(values ...T) {
 	for _, value := range values {
