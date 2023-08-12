@@ -144,3 +144,20 @@ func TestPopNonEmpty(t *testing.T) {
 		t.Errorf("return value should be nil")
 	}
 }
+
+func TestCopy(t *testing.T) {
+	s := NewSet[string]("a", "b", "c")
+	u := s.Copy()
+	if u.Size() != s.Size() {
+		t.Errorf("Size of new set does not match size of old set")
+		return
+	}
+
+	for _, item := range s.Items() {
+		if !u.Has(item) {
+			t.Errorf("new set is missing elements from old")
+			return
+		}
+	}
+
+}
