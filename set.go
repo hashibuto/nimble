@@ -98,17 +98,17 @@ func (s *Set[T]) Intersect(set *Set[T]) *Set[T] {
 
 func (s *Set[T]) Difference(set ...*Set[T]) *Set[T] {
 	if len(set) == 0 {
-		s := NewSet[T]()
-		for item := range set[0].collection {
-			s.collection[item] = struct{}{}
+		ns := NewSet[T]()
+		for item := range s.collection {
+			ns.collection[item] = struct{}{}
 		}
-		return s
+		return ns
 	}
 
 	newSet := NewSet[T]()
 	for key := range s.collection {
-		for _, s := range set {
-			if s.Has(key) {
+		for _, inset := range set {
+			if inset.Has(key) {
 				goto skipKey
 			}
 		}
