@@ -129,6 +129,28 @@ func TestDifference(t *testing.T) {
 	}
 }
 
+func TestDifferenceEmpty(t *testing.T) {
+	a := NewSet("a", "b", "c")
+	b := NewSet[string]()
+	c := a.Difference(b)
+	if c.Size() != 3 {
+		t.Errorf("Set size is incorrect: %v", c.Items())
+		return
+	}
+	if !c.Has("a") {
+		t.Errorf("missing set element: a")
+		return
+	}
+	if !c.Has("b") {
+		t.Errorf("missing set element: b")
+		return
+	}
+	if !c.Has("c") {
+		t.Errorf("missing set element: b")
+		return
+	}
+}
+
 func TestPopEmpty(t *testing.T) {
 	s := NewSet[string]()
 	val := s.Pop()
