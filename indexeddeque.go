@@ -21,7 +21,8 @@ type IndexedDequeue struct {
 }
 
 // NewIndexedDequeue creates an indexed deque, whereby items can be accessed in constant time from the head or tail,
-// and arbitrary items can be accessed in O(1 + n) time using a string lookup.
+// and arbitrary items can be accessed in near constant time using a string lookup, where lookup time varies slightly by
+// the number of matching candidates.
 // pop => prev(nil) <-- tail <-- prev next --> head --> next(nil) <= push
 func NewIndexedDequeue(items ...string) *IndexedDequeue {
 	idq := &IndexedDequeue{
