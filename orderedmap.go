@@ -106,6 +106,9 @@ func (i *OrderedMapIter[K, V]) Value() V {
 func (i *OrderedMapIter[K, V]) Next() bool {
 	if i.curLink == nil {
 		i.curLink = i.headLink
+		if i.curLink == nil {
+			return false
+		}
 	} else {
 		if i.curLink.Next == nil {
 			return false
@@ -121,6 +124,9 @@ func (i *OrderedMapIter[K, V]) Next() bool {
 func (i *OrderedMapIter[K, V]) ReverseNext() bool {
 	if i.curLink == nil {
 		i.curLink = i.tailLink
+		if i.curLink == nil {
+			return false
+		}
 	} else {
 		if i.curLink.Prev == nil {
 			return false
