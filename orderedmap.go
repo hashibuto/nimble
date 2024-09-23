@@ -14,10 +14,9 @@ type OrderedMap[K comparable, V any] struct {
 }
 
 type OrderedMapIter[K comparable, V any] struct {
-	headLink    *Link[K, V]
-	tailLink    *Link[K, V]
-	curLink     *Link[K, V]
-	isExhausted bool
+	headLink *Link[K, V]
+	tailLink *Link[K, V]
+	curLink  *Link[K, V]
 }
 
 func NewOrderedMap[K comparable, V any]() *OrderedMap[K, V] {
@@ -105,37 +104,35 @@ func (i *OrderedMapIter[K, V]) Value() V {
 // Next advances to the next position in the iterator.  This must be called before the iterator's Key() or Value() functions can be consumed.
 // This lends well to using Next() in a for loop
 func (i *OrderedMapIter[K, V]) Next() bool {
-	if i.isExhausted {
-		return false
-	}
-
 	if i.curLink == nil {
 		i.curLink = i.headLink
+		if i.curLink == nil {
+			return false
+		}
 	} else {
+		if i.curLink.Next == nil {
+			return false
+		}
 		i.curLink = i.curLink.Next
 	}
 
-	ok := i.curLink != nil
-	i.isExhausted = !ok
-
-	return ok
+	return true
 }
 
 // ReverseNext advances to the next position in the iterator, starting from the end going to the beginning.
 // This must be called before the iterator's Key() or Value() functions can be consumed. This lends well to using ReverseNext() in a for loop
 func (i *OrderedMapIter[K, V]) ReverseNext() bool {
-	if i.isExhausted {
-		return false
-	}
-
 	if i.curLink == nil {
 		i.curLink = i.tailLink
+		if i.curLink == nil {
+			return false
+		}
 	} else {
+		if i.curLink.Prev == nil {
+			return false
+		}
 		i.curLink = i.curLink.Prev
 	}
 
-	ok := i.curLink == nil
-	i.isExhausted = !ok
-
-	return ok
+	return true
 }
