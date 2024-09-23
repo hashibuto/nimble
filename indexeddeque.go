@@ -21,46 +21,35 @@ type IndexedDequeue struct {
 }
 
 type IndexedDequeIterator struct {
-	head        *IndexedDequeueLink
-	tail        *IndexedDequeueLink
-	link        *IndexedDequeueLink
-	isExhausted bool
+	head *IndexedDequeueLink
+	tail *IndexedDequeueLink
+	link *IndexedDequeueLink
 }
 
 func (iqi *IndexedDequeIterator) Next() bool {
-	if iqi.isExhausted {
-		return false
-	}
-
 	if iqi.link == nil {
 		iqi.link = iqi.tail
 	} else {
+		if iqi.link.next == nil {
+			return false
+		}
 		iqi.link = iqi.link.next
 	}
 
-	if iqi.link == nil {
-		iqi.isExhausted = true
-	}
-
-	return !iqi.isExhausted
+	return true
 }
 
 func (iqi *IndexedDequeIterator) ReverseNext() bool {
-	if iqi.isExhausted {
-		return false
-	}
-
 	if iqi.link == nil {
 		iqi.link = iqi.head
 	} else {
+		if iqi.link.prev == nil {
+			return false
+		}
 		iqi.link = iqi.link.prev
 	}
 
-	if iqi.link == nil {
-		iqi.isExhausted = true
-	}
-
-	return !iqi.isExhausted
+	return true
 }
 
 func (iqi *IndexedDequeIterator) Value() string {
