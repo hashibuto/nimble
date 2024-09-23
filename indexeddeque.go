@@ -20,6 +20,53 @@ type IndexedDequeue struct {
 	size   int
 }
 
+type IndexedDequeIterator struct {
+	head        *IndexedDequeueLink
+	tail        *IndexedDequeueLink
+	link        *IndexedDequeueLink
+	isExhausted bool
+}
+
+func (iqi *IndexedDequeIterator) Next() bool {
+	if iqi.isExhausted {
+		return false
+	}
+
+	if iqi.link == nil {
+		iqi.link = iqi.tail
+	} else {
+		iqi.link = iqi.link.next
+	}
+
+	if iqi.link == nil {
+		iqi.isExhausted = true
+	}
+
+	return !iqi.isExhausted
+}
+
+func (iqi *IndexedDequeIterator) ReverseNext() bool {
+	if iqi.isExhausted {
+		return false
+	}
+
+	if iqi.link == nil {
+		iqi.link = iqi.head
+	} else {
+		iqi.link = iqi.link.prev
+	}
+
+	if iqi.link == nil {
+		iqi.isExhausted = true
+	}
+
+	return !iqi.isExhausted
+}
+
+func (iqi *IndexedDequeIterator) Value() string {
+	return iqi.link.Value
+}
+
 // NewIndexedDequeue creates an indexed deque, whereby items can be accessed in constant time from the head or tail,
 // and arbitrary items can be accessed in near constant time using a string lookup, where lookup time varies slightly by
 // the number of matching candidates.
@@ -137,6 +184,14 @@ func (iq *IndexedDequeue) RemoveItem(links ...*IndexedDequeueLink) {
 
 func (iq *IndexedDequeue) Size() int {
 	return iq.size
+}
+
+// GetIter returns an iterator
+func (iq *IndexedDequeue) GetIter() *IndexedDequeIterator {
+	return &IndexedDequeIterator{
+		head: iq.head,
+		tail: iq.tail,
+	}
 }
 
 func (iq *IndexedDequeue) computeNGrams(value string) []string {
