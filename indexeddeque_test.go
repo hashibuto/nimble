@@ -50,7 +50,7 @@ func TestIndexedDequeReverseIter(t *testing.T) {
 	idq := NewIndexedDequeue("s", "test", "hello", "hello world")
 	iter := idq.GetIter()
 	i := 0
-	for iter.Next() {
+	for iter.ReverseNext() {
 		i++
 	}
 
