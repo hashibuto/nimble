@@ -29,6 +29,9 @@ type IndexedDequeIterator struct {
 func (iqi *IndexedDequeIterator) Next() bool {
 	if iqi.link == nil {
 		iqi.link = iqi.tail
+		if iqi.link == nil {
+			return false
+		}
 	} else {
 		if iqi.link.next == nil {
 			return false
@@ -42,6 +45,9 @@ func (iqi *IndexedDequeIterator) Next() bool {
 func (iqi *IndexedDequeIterator) ReverseNext() bool {
 	if iqi.link == nil {
 		iqi.link = iqi.head
+		if iqi.link == nil {
+			return false
+		}
 	} else {
 		if iqi.link.prev == nil {
 			return false
