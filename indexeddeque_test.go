@@ -34,3 +34,25 @@ func TestIndexedDequeBasic(t *testing.T) {
 	assert.Nil(t, idq.head)
 	assert.Nil(t, idq.tail)
 }
+
+func TestIndexedDequeForwardIter(t *testing.T) {
+	idq := NewIndexedDequeue("s", "test", "hello", "hello world")
+	iter := idq.GetIter()
+	i := 0
+	for iter.Next() {
+		i++
+	}
+
+	assert.Equal(t, 4, i)
+}
+
+func TestIndexedDequeReverseIter(t *testing.T) {
+	idq := NewIndexedDequeue("s", "test", "hello", "hello world")
+	iter := idq.GetIter()
+	i := 0
+	for iter.Next() {
+		i++
+	}
+
+	assert.Equal(t, 4, i)
+}
